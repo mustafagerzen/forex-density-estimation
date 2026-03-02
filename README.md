@@ -1,9 +1,8 @@
 # forex-density-estimation
 ## 1. K-Means Clustering
 
-- Partitions data into **K clusters** by minimizing within-cluster squared distances  
-  (SSE / inertia).
-- Model selection based on **Silhouette Score**.
+- Partitions data into K clusters by minimizing within-cluster squared distances (SSE / inertia).
+- Model selection based on Silhouette Score.
 - Used to identify structural groupings in return space.
 
 ---
@@ -12,37 +11,40 @@
 
 Models data as a mixture of Gaussian distributions:
 
-\[
-p(x) = \sum_{k=1}^{K} \pi_k \mathcal{N}(x \mid \mu_k, \Sigma_k)
-\]
+p(x) = sum over k=1 to K of [ pi_k * N(x | mu_k, Sigma_k) ]
 
-- Parameters estimated using the **Expectation–Maximization (EM)** algorithm.
-- Model selection based on **AIC/BIC**.
+Where:
+- pi_k = mixture weight of component k
+- mu_k = mean of component k
+- Sigma_k = covariance matrix of component k
+- N(x | mu_k, Sigma_k) = Gaussian distribution
+
+- Parameters are estimated using the Expectation–Maximization (EM) algorithm.
+- Model selection is performed using AIC and BIC.
 - Provides probabilistic cluster membership and full density estimation.
 
 ---
 
 ## Key Concepts Explained
 
-**Clustering**  
+Clustering  
 Partitioning data into groups based on similarity.
 
-**Density Estimation**  
+Density Estimation  
 Modeling the probability distribution that generates the data.
 
-**EM Algorithm (Expectation–Maximization)**  
-Iterative method used in GMM:
+EM Algorithm (Expectation–Maximization)  
 
-- **E-step:** Estimate component membership probabilities.
-- **M-step:** Update Gaussian parameters.
+- E-step: Estimate component membership probabilities.
+- M-step: Update Gaussian parameters (means, covariances, weights).
 - Repeat until convergence.
 
 ---
 
 ## Results Discussion
 
-Results indicate that FX log-returns are better described by **multiple Gaussian components** rather than a single normal distribution.
+Results indicate that FX log-returns are better described by multiple Gaussian components rather than a single normal distribution.
 
-The presence of multiple mixture components suggests **regime-like behavior** in return dynamics (e.g., lower vs higher volatility states).
+The presence of multiple mixture components suggests regime-like behavior in return dynamics (for example, lower-volatility vs higher-volatility states).
 
 GMM provides a richer probabilistic interpretation compared to K-Means, which only performs geometric partitioning.
